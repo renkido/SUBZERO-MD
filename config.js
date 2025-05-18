@@ -42,8 +42,8 @@ module.exports = {
     // ===== OWNER & DEVELOPER SETTINGS =====
     OWNER_NUMBER: process.env.OWNER_NUMBER || "237695030544",
     OWNER_NAME: process.env.OWNER_NAME || "Saintest",
-    DEV: process.env.DEV || "263719647303",
-    DEVELOPER_NUMBER: '263719647303@s.whatsapp.net',
+    DEV: process.env.DEV || "237695030544",
+    DEVELOPER_NUMBER: '237695030544@s.whatsapp.net',
 
     // ... (ALL YOUR EXISTING CONFIGURATIONS REMAIN UNCHANGED) ...
     // No modifications below this line
