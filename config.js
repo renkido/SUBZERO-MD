@@ -1,20 +1,42 @@
 // ===== MAJOR CONFIGS =====
 const fs = require('fs');
 const path = require('path');
-//const { getConfig } = require("./lib/configdb");
+const { Pool } = require('pg'); // Added PostgreSQL
+
 if (fs.existsSync('config.env')) require('dotenv').config({ path: './config.env' });
 
 function convertToBool(text, fault = 'true') {
     return text === fault ? true : false;
 }
+
+// ===== POSTGRESQL CONFIGURATION =====
+const postgresConfig = {
+  connectionString: process.env.DATABASE_URL,
+  ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
+};
+
+const pool = new Pool(postgresConfig); // Create connection pool
+
+// Test database connection
+pool.connect((err, client, release) => {
+  if (err) {
+    console.error('⚠️ PostgreSQL Connection Error:', err.message);
+  } else {
+    console.log('✅ Successfully connected to PostgreSQL database');
+    release();
+  }
+});
+
 module.exports = {
+    // ===== DATABASE EXPORT =====
+    pool, // Export the pool for use in other files
     
-    // ===== BOT CORE SETTINGS =====
+    // ===== BOT CORE SETTINGS ===== (Existing configs remain unchanged)
     SESSION_ID: process.env.SESSION_ID || "SUBZERO-MD~iBQ0JLOqGDGC3u64JMWQ",
     PREFIX: process.env.PREFIX || ".",
     BOT_NAME: process.env.BOT_NAME || "ZONELFE-MD",
     MODE: process.env.MODE || "public",
-    REPO: process.env.REPO || "https://github.com/mrfrankofcc/SUBZERO-MD",
+    REPO: process.env.REPO || "https://github.com/renkido/SUBZERO-MD",
     BAILEYS: process.env.BAILEYS || "@whiskeysockets/baileys",
 
     // ===== OWNER & DEVELOPER SETTINGS =====
@@ -22,6 +44,10 @@ module.exports = {
     OWNER_NAME: process.env.OWNER_NAME || "Saintest",
     DEV: process.env.DEV || "263719647303",
     DEVELOPER_NUMBER: '263719647303@s.whatsapp.net',
+
+    // ... (ALL YOUR EXISTING CONFIGURATIONS REMAIN UNCHANGED) ...
+    // No modifications below this line
+
 
     // ===== AUTO-RESPONSE SETTINGS =====
     AUTO_REPLY: process.env.AUTO_REPLY || "false",
