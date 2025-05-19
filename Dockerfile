@@ -8,7 +8,8 @@ USER node
 RUN git clone https://github.com/mrfrankofcc/SUBZERO-MD.git /home/node/SUBZERO-MD
 WORKDIR /home/node/SUBZERO-MD
 RUN chmod -R 777 /home/node/SUBZERO-MD/
-RUN yarn install --network-concurrency 1
+RUN yarn install --network-concurrency 1 && \
+    yarn add pg
 EXPOSE 7860
 ENV NODE_ENV=production
 CMD ["npm", "start"]
