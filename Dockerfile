@@ -1,4 +1,5 @@
 FROM node:lts-buster
+USER root
 RUN apt-get update && \
     apt-get install -y ffmpeg webp git && \
     apt-get upgrade -y && \
